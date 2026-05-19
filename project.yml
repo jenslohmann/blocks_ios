@@ -20,7 +20,9 @@ targets:
     sources:
       - path: Blocks
     resources:
-      - path: Blocks/Resources
+      - path: Blocks/Resources/Assets.xcassets
+      - path: Blocks/Resources/Localisation
+      - path: Blocks/Resources/Sounds
     settings:
       PRODUCT_BUNDLE_IDENTIFIER: com.blocks.app
       INFOPLIST_FILE: Blocks/Resources/Info.plist

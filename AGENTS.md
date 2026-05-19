@@ -239,6 +239,8 @@ All pieces are defined as arrays of `(row, col)` offsets from the top-left ancho
 
 When implementing features for this project:
 
+> **Tooling preference:** Use file tools (`create_file`, `insert_edit_into_file`, `replace_string_in_file`) to write and edit source files directly. Only fall back to terminal commands for tasks that genuinely require them — such as running `xcodegen`, building, or executing tests. Do **not** use terminal commands (e.g. Python scripts or `cat`) as a workaround for writing files.
+
 1. **Always** read `AGENTS.md` first to understand the architecture.
 2. **Follow the project structure** defined above — place new files in the correct folder.
 3. **Models must be pure** — no UIKit/SwiftUI imports in `Models/`.
