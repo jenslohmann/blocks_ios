@@ -23,7 +23,20 @@ struct GameView: View {
             } else {
                 iPadLayout
             }
+
+            // Game-over overlay sits on top of everything.
+            if viewModel.gameState.isGameOver {
+                GameOverView(
+                    score: viewModel.gameState.score,
+                    highScore: viewModel.gameState.highScore,
+                    onPlayAgain: {
+                        viewModel.newGame()
+                    }
+                )
+                .transition(.opacity.combined(with: .scale(scale: 0.95)))
+            }
         }
+        .animation(.easeInOut(duration: 0.3), value: viewModel.gameState.isGameOver)
     }
 
     // MARK: - Layouts

@@ -11,6 +11,11 @@ struct PieceSet {
         slots = PieceLibrary.randomSet().map { Optional($0) }
     }
 
+    /// Initialiser for testing: supply fixed slots directly.
+    init(fixedSlots: [Piece?]) {
+        slots = fixedSlots
+    }
+
     /// The pieces currently available to place (non-nil slots).
     var availablePieces: [Piece] {
         slots.compactMap { $0 }

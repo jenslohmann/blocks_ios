@@ -12,8 +12,8 @@ final class GameViewModel {
     // MARK: - State
 
     private(set) var board = Board()
-    private(set) var pieceSet = PieceSet()
-    private(set) var gameState = GameState()
+    var pieceSet = PieceSet()
+    var gameState = GameState()
 
     /// The piece currently being dragged, together with the board cell it is hovering over.
     private(set) var draggedPiece: Piece? = nil
@@ -53,14 +53,25 @@ final class GameViewModel {
         board.place(piece, at: origin)
         gameState.score += piece.cells.count
 
-        // Clear completed lines and update score.
+        // Clear completed lines and apply combo-multiplied bonus.
         let linesCleared = board.clearFullLines()
-        gameState.score += scoreForLines(linesCleared)
+        if linesCleared > 0 {
+            let baseBonus = scoreForLines(linesCleared)
+            let comboMultiplier = comboMultiplier(forComboCount: gameState.comboCount)
+            let totalBonus = Int(Double(baseBonus) * comboMultiplier)
+            gameState.score += totalBonus
+            gameState.comboCount += 1
+        } else {
+            // No lines cleared this round — reset the combo streak.
+            gameState.comboCount = 0
+        }
 
         // Mark piece as used; replenish when the whole set is gone.
         pieceSet.markPlaced(pieceWithID: piece.id)
         if pieceSet.isEmpty {
             pieceSet.replenish()
+            // Combo resets between sets (each set is its own round).
+            gameState.comboCount = 0
         }
 
         // Check whether the game should end.
@@ -96,7 +107,7 @@ final class GameViewModel {
 
     // MARK: - Private helpers
 
-    /// Maps a number of simultaneously cleared lines to a point bonus.
+    /// Maps a number of simultaneously cleared lines to a base point bonus.
     private func scoreForLines(_ count: Int) -> Int {
         switch count {
         case 1:  return 10
@@ -104,6 +115,14 @@ final class GameViewModel {
         case 3:  return 60
         default: return count >= 4 ? 100 : 0
         }
+    }
+
+    /// Returns the combo multiplier for the given consecutive-clear count.
+    /// The first clear in a streak has no multiplier (×1.0).
+    /// Each subsequent consecutive clear round adds ×0.5.
+    private func comboMultiplier(forComboCount count: Int) -> Double {
+        if count <= 0 { return 1.0 }
+        return 1.0 + Double(count) * 0.5
     }
 }
 
