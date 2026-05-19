@@ -77,6 +77,31 @@ class Board {
 
     // MARK: - Helpers
 
+    /// Returns the set of all cell coordinates that belong to completed rows or columns,
+    /// without modifying the grid. Used to drive clear animations before `clearFullLines()`.
+    func fullLineCells() -> Set<Coordinate> {
+        var result = Set<Coordinate>()
+
+        let fullRows = (0 ..< Board.size).filter { row in
+            grid[row].allSatisfy { $0 != nil }
+        }
+        let fullCols = (0 ..< Board.size).filter { col in
+            (0 ..< Board.size).allSatisfy { row in grid[row][col] != nil }
+        }
+
+        for row in fullRows {
+            for col in 0 ..< Board.size {
+                result.insert(Coordinate(row: row, col: col))
+            }
+        }
+        for col in fullCols {
+            for row in 0 ..< Board.size {
+                result.insert(Coordinate(row: row, col: col))
+            }
+        }
+        return result
+    }
+
     /// Returns true if the piece can be placed at any valid position on the board.
     func hasValidPlacement(for piece: Piece) -> Bool {
         for row in 0 ..< Board.size {

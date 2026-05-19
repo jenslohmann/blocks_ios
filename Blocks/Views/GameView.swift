@@ -22,6 +22,11 @@ struct GameView: View {
     /// Board frame in global coordinates — updated by BoardView on every layout pass.
     @State private var boardGlobalFrame: CGRect = .zero
 
+    // MARK: - Local animation state
+    @State private var boardShakeOffset: CGFloat = 0
+    @State private var scoreScale: CGFloat = 1
+    @State private var scoreGlowAmount: CGFloat = 0
+
     var body: some View {
         ZStack {
             // Background fills the whole screen including safe areas.
@@ -43,6 +48,15 @@ struct GameView: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: viewModel.gameState.isGameOver)
+        // Combo: score label bounces with a gold glow.
+        .onChange(of: viewModel.comboEventID) { _, _ in
+            withAnimation(.spring(duration: 0.25)) { scoreScale = 1.35; scoreGlowAmount = 1 }
+            withAnimation(.spring(duration: 0.25).delay(0.25)) { scoreScale = 1; scoreGlowAmount = 0 }
+        }
+        // Game over: board shakes horizontally.
+        .onChange(of: viewModel.gameOverEventID) { _, _ in
+            playBoardShake()
+        }
     }
 
     // MARK: - Layout selector
@@ -73,8 +87,7 @@ struct GameView: View {
         let cellSize  = boardSide / CGFloat(Board.size)
 
         return VStack(spacing: 0) {
-            HUDView(score: viewModel.gameState.score,
-                    highScore: viewModel.gameState.highScore)
+            animatedHUD
                 .padding(.top, 12)
                 .padding(.bottom, 8)
 
@@ -100,8 +113,7 @@ struct GameView: View {
 
         return HStack(spacing: 0) {
             VStack(spacing: 0) {
-                HUDView(score: viewModel.gameState.score,
-                        highScore: viewModel.gameState.highScore)
+                animatedHUD
                     .padding(.vertical, 8)
                 boardView(cellSize: cellSize)
                     .frame(width: boardSide, height: boardSide)
@@ -130,8 +142,7 @@ struct GameView: View {
         let cellSize = boardSide / CGFloat(Board.size)
 
         return VStack(spacing: 0) {
-            HUDView(score: viewModel.gameState.score,
-                    highScore: viewModel.gameState.highScore)
+            animatedHUD
                 .padding(.top, 24)
                 .padding(.bottom, 16)
 
@@ -165,6 +176,8 @@ struct GameView: View {
                     label: String(localized: "game.score.label"),
                     value: viewModel.gameState.score
                 )
+                .scaleEffect(scoreScale)
+                .shadow(color: .yellow.opacity(scoreGlowAmount * 0.8), radius: 12)
                 Spacer()
             }
             .frame(width: hudWidth)
@@ -195,19 +208,30 @@ struct GameView: View {
 
     // MARK: - Shared sub-views
 
+    /// HUD view with combo bounce + gold glow animation applied.
+    private var animatedHUD: some View {
+        HUDView(score: viewModel.gameState.score,
+                highScore: viewModel.gameState.highScore)
+            .scaleEffect(scoreScale)
+            .shadow(color: .yellow.opacity(scoreGlowAmount * 0.8), radius: 12)
+    }
+
     private func boardView(cellSize: CGFloat) -> some View {
         BoardView(
             grid: viewModel.board.grid,
             ghostPiece: viewModel.draggedPiece,
             ghostOrigin: viewModel.ghostOrigin,
+            clearingCells: viewModel.recentlyClearedCells,
             onFrameChanged: { frame in boardGlobalFrame = frame }
         )
+        .offset(x: boardShakeOffset)
     }
 
     private func tray(cellSize: CGFloat) -> some View {
         PieceTrayView(
             slots: viewModel.pieceSet.slots,
             cellSize: cellSize,
+            invalidDropEventID: viewModel.invalidDropEventID,
             onDragChanged: handleDragChanged,
             onDragEnded: handleDragEnded
         )
@@ -221,6 +245,7 @@ struct GameView: View {
                     PieceView(
                         piece: piece,
                         cellSize: cellSize,
+                        triggerInvalidDrop: viewModel.invalidDropEventID,
                         onDragChanged: { location in
                             handleDragChanged(piece: piece, globalLocation: location)
                         },
@@ -233,6 +258,16 @@ struct GameView: View {
                 }
             }
         }
+    }
+
+    /// Horizontal shake animation — used on game over.
+    private func playBoardShake() {
+        let shakeDistance: CGFloat = 12
+        withAnimation(.easeInOut(duration: 0.07))                 { boardShakeOffset =  shakeDistance }
+        withAnimation(.easeInOut(duration: 0.07).delay(0.07))     { boardShakeOffset = -shakeDistance }
+        withAnimation(.easeInOut(duration: 0.07).delay(0.14))     { boardShakeOffset =  shakeDistance * 0.6 }
+        withAnimation(.easeInOut(duration: 0.07).delay(0.21))     { boardShakeOffset = -shakeDistance * 0.6 }
+        withAnimation(.easeInOut(duration: 0.07).delay(0.28))     { boardShakeOffset = 0 }
     }
 
     // MARK: - Drag coordinate translation

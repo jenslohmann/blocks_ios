@@ -6,6 +6,8 @@ struct PieceTrayView: View {
 
     let slots: [Piece?]
     let cellSize: CGFloat
+    /// Toggled by GameView when an invalid drop occurs — triggers wiggle on each piece.
+    var invalidDropEventID: UUID = UUID()
     var onDragChanged: ((_ piece: Piece, _ globalLocation: CGPoint) -> Void)? = nil
     var onDragEnded: ((_ piece: Piece, _ globalLocation: CGPoint?) -> Void)? = nil
 
@@ -24,6 +26,7 @@ struct PieceTrayView: View {
             PieceView(
                 piece: piece,
                 cellSize: cellSize,
+                triggerInvalidDrop: invalidDropEventID,
                 onDragChanged: { location in
                     onDragChanged?(piece, location)
                 },

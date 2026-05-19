@@ -4,11 +4,14 @@ import SwiftUI
 /// Cell size is computed dynamically from the available space so the board
 /// fills the available square on every device and orientation.
 /// An optional ghost piece is overlaid at the given origin to preview placement.
+/// Cells in `clearingCells` play a flash-and-shrink animation before disappearing.
 struct BoardView: View {
 
     let grid: [[String?]]
     var ghostPiece: Piece? = nil
     var ghostOrigin: Coordinate? = nil
+    /// Coordinates of cells currently playing the clear animation.
+    var clearingCells: Set<Coordinate> = []
 
     /// Exposes the board's frame in global coordinates so GameView can
     /// convert drag positions into board cell coordinates.
@@ -25,7 +28,11 @@ struct BoardView: View {
                     ForEach(0 ..< Board.size, id: \.self) { row in
                         HStack(spacing: 0) {
                             ForEach(0 ..< Board.size, id: \.self) { col in
-                                CellView(colorName: grid[row][col], size: cellSize)
+                                CellView(
+                                    colorName: grid[row][col],
+                                    size: cellSize,
+                                    isClearing: clearingCells.contains(Coordinate(row: row, col: col))
+                                )
                             }
                         }
                     }

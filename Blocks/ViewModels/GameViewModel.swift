@@ -19,6 +19,20 @@ final class GameViewModel {
     private(set) var draggedPiece: Piece? = nil
     private(set) var ghostOrigin: Coordinate? = nil
 
+    // MARK: - Animation triggers
+    // Each property is toggled so views can drive .onChange animations.
+
+    /// Toggled every time a piece is placed successfully.
+    private(set) var placementEventID: UUID = UUID()
+    /// Set of coordinates that were just cleared — drives the flash-and-shrink animation.
+    private(set) var recentlyClearedCells: Set<Coordinate> = []
+    /// Toggled when a combo is scored.
+    private(set) var comboEventID: UUID = UUID()
+    /// Toggled when the game ends.
+    private(set) var gameOverEventID: UUID = UUID()
+    /// Toggled when an invalid drop is attempted.
+    private(set) var invalidDropEventID: UUID = UUID()
+
     // MARK: - Init
 
     init() {
@@ -46,12 +60,22 @@ final class GameViewModel {
         ghostOrigin = nil
 
         guard let origin = origin, board.canPlace(piece, at: origin) else {
+            // Invalid drop — haptic + animation trigger.
+            invalidDropEventID = UUID()
+            HapticManager.invalidDrop()
             return false
         }
 
         // Place the piece and score its cells.
         board.place(piece, at: origin)
         gameState.score += piece.cells.count
+        placementEventID = UUID()
+        HapticManager.piecePlaced()
+        SoundManager.shared.play(.place)
+
+        // Capture which cells are about to be cleared so the UI can animate them.
+        let cellsToAnimate = board.fullLineCells()
+        recentlyClearedCells = cellsToAnimate
 
         // Clear completed lines and apply combo-multiplied bonus.
         let linesCleared = board.clearFullLines()
@@ -60,9 +84,19 @@ final class GameViewModel {
             let comboMultiplier = comboMultiplier(forComboCount: gameState.comboCount)
             let totalBonus = Int(Double(baseBonus) * comboMultiplier)
             gameState.score += totalBonus
+
+            if gameState.comboCount > 0 {
+                // This is a consecutive clear — fire the combo event.
+                comboEventID = UUID()
+                HapticManager.combo()
+                SoundManager.shared.play(.combo)
+            } else {
+                HapticManager.lineCleared()
+                SoundManager.shared.play(.clear)
+            }
             gameState.comboCount += 1
         } else {
-            // No lines cleared this round — reset the combo streak.
+            recentlyClearedCells = []
             gameState.comboCount = 0
         }
 
@@ -70,7 +104,6 @@ final class GameViewModel {
         pieceSet.markPlaced(pieceWithID: piece.id)
         if pieceSet.isEmpty {
             pieceSet.replenish()
-            // Combo resets between sets (each set is its own round).
             gameState.comboCount = 0
         }
 
@@ -78,6 +111,9 @@ final class GameViewModel {
         let anyPieceFits = pieceSet.availablePieces.contains { board.hasValidPlacement(for: $0) }
         if !anyPieceFits {
             gameState.isGameOver = true
+            gameOverEventID = UUID()
+            HapticManager.gameOver()
+            SoundManager.shared.play(.gameOver)
         }
 
         // Persist high score.
