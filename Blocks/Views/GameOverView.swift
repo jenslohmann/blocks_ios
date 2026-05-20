@@ -2,11 +2,16 @@ import SwiftUI
 
 /// Full-screen overlay shown when the game ends.
 /// Displays the final score, the all-time high score, and a "Play Again" button.
+/// Shows a "New Best!" badge when the player has set a new high score.
 struct GameOverView: View {
 
     let score: Int
     let highScore: Int
+    let isNewHighScore: Bool
     let onPlayAgain: () -> Void
+
+    @State private var cardScale: CGFloat = 0.8
+    @State private var cardOpacity: Double = 0
 
     var body: some View {
         ZStack {
@@ -25,13 +30,37 @@ struct GameOverView: View {
                     .shadow(color: .black.opacity(0.5), radius: 24, y: 8)
             )
             .padding(.horizontal, 32)
+            .scaleEffect(cardScale)
+            .opacity(cardOpacity)
+            .onAppear {
+                withAnimation(.spring(duration: 0.4, bounce: 0.3)) {
+                    cardScale = 1
+                    cardOpacity = 1
+                }
+            }
         }
     }
 
+    // MARK: - Sub-views
+
     private var titleSection: some View {
-        Text(String(localized: "gameOver.title"))
-            .font(.system(.largeTitle, design: .rounded, weight: .black))
-            .foregroundStyle(.white)
+        VStack(spacing: 8) {
+            Text(String(localized: "gameOver.title"))
+                .font(.system(.largeTitle, design: .rounded, weight: .black))
+                .foregroundStyle(.white)
+
+            if isNewHighScore {
+                Text(String(localized: "gameOver.newHighScore.badge"))
+                    .font(.system(.caption, design: .rounded, weight: .bold))
+                    .foregroundStyle(.black)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 4)
+                    .background(
+                        Capsule().fill(Color.yellow)
+                    )
+                    .transition(.scale.combined(with: .opacity))
+            }
+        }
     }
 
     private var scoreSection: some View {

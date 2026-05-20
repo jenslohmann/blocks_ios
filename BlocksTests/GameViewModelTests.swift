@@ -107,6 +107,40 @@ final class GameViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.gameState.comboCount, 0)
     }
 
+    // MARK: - High score persistence
+
+    func test_highScore_isPreservedAfterNewGame() {
+        let viewModel = GameViewModel()
+        // Manually set a high score via UserDefaults (bypassing actual gameplay).
+        UserDefaults.standard.set(500, forKey: "highScore")
+        viewModel.newGame()
+        XCTAssertEqual(viewModel.gameState.highScore, 500)
+        // Clean up.
+        UserDefaults.standard.removeObject(forKey: "highScore")
+    }
+
+    func test_isNewHighScore_setWhenScoreExceedsHighScore() {
+        let viewModel = GameViewModel()
+        // Start with a known high score of 0.
+        UserDefaults.standard.set(0, forKey: "highScore")
+        viewModel.newGame()
+
+        // Place a piece to earn some score points.
+        let piece = Piece(cells: [Coordinate(row: 0, col: 0)], colorName: "pieceRed")
+        viewModel.commitDrop(piece: piece, at: Coordinate(row: 0, col: 0))
+
+        XCTAssertTrue(viewModel.gameState.isNewHighScore,
+            "isNewHighScore should be true when current score beats the stored high score")
+        UserDefaults.standard.removeObject(forKey: "highScore")
+    }
+
+    func test_newGame_resetsIsNewHighScore() {
+        let viewModel = GameViewModel()
+        viewModel.gameState.isNewHighScore = true
+        viewModel.newGame()
+        XCTAssertFalse(viewModel.gameState.isNewHighScore)
+    }
+
     // MARK: - Helpers
 
     /// Mirrors the scoring formula in GameViewModel for self-contained verification.

@@ -42,6 +42,7 @@ struct GameView: View {
                 GameOverView(
                     score: viewModel.gameState.score,
                     highScore: viewModel.gameState.highScore,
+                    isNewHighScore: viewModel.gameState.isNewHighScore,
                     onPlayAgain: { viewModel.newGame() }
                 )
                 .transition(.opacity.combined(with: .scale(scale: 0.95)))

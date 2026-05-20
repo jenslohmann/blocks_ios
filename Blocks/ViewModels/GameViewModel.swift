@@ -116,9 +116,10 @@ final class GameViewModel {
             SoundManager.shared.play(.gameOver)
         }
 
-        // Persist high score.
+        // Persist high score and flag if it's a new record.
         if gameState.score > gameState.highScore {
             gameState.highScore = gameState.score
+            gameState.isNewHighScore = true
             UserDefaults.standard.set(gameState.highScore, forKey: "highScore")
         }
 

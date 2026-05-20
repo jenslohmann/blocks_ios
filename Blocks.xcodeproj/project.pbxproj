@@ -18,6 +18,7 @@
 		56CAE6020F7F85D4F6BC50C4 /* GameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEE6E156BEB304A796241C8 /* GameView.swift */; };
 		5BF834C1B3EBA0C8FB777FB4 /* GameOverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57F3A73F97893FF83588D35E /* GameOverView.swift */; };
 		5E134A4384EB54F94FF01969 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF82729D913084A2FCC518A7 /* Assets.xcassets */; };
+		7504E1696D2504AAE398499B /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CD20A033CFD2821863A94 /* InfoPlist.xcstrings */; };
 		887BF0E1CB9C871BD5BC0B45 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2944C67E1982DE3DCF595 /* Piece.swift */; };
 		A61AB70B5583B7625C917F8B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA6D387DC488124612D3771 /* BoardView.swift */; };
 		B63762B41611F860AD5AD502 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1842ECDB1D288F47E33908 /* SoundManager.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0A8CD20A033CFD2821863A94 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		0B88B2E9B6E6902272294504 /* BlocksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksApp.swift; sourceTree = "<group>"; };
 		27A09FA4AF4DB962DB3BDAA6 /* Blocks.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Blocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B032ECFAFE8133346D9FAE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 		2911110F6C59EA874E7FB7A8 /* Localisation */ = {
 			isa = PBXGroup;
 			children = (
+				0A8CD20A033CFD2821863A94 /* InfoPlist.xcstrings */,
 				C9F67DAFFE4F14C830B0CC4A /* Localizable.xcstrings */,
 			);
 			path = Localisation;
@@ -260,6 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E134A4384EB54F94FF01969 /* Assets.xcassets in Resources */,
+				7504E1696D2504AAE398499B /* InfoPlist.xcstrings in Resources */,
 				3F98E733D9A26595C16F52E3 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
