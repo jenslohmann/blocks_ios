@@ -19,7 +19,7 @@ struct AboutView: View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.051, green: 0.051, blue: 0.102)
+            Color("appBackground")
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -49,11 +49,11 @@ struct AboutView: View {
 
                 Text(String(localized: "about.appName"))
                     .font(.system(.title, design: .rounded, weight: .black))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
 
                 Text(String(localized: "about.version \(appVersion)"))
                     .font(.system(.subheadline, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.4))
+                    .foregroundStyle(.secondary)
                     .padding(.top, 4)
                     .padding(.bottom, 40)
 
@@ -65,7 +65,7 @@ struct AboutView: View {
                             .foregroundStyle(.cyan)
                         Text(String(localized: "about.openSource.label"))
                             .font(.system(.subheadline, design: .rounded))
-                            .foregroundStyle(.white.opacity(0.85))
+                            .foregroundStyle(.primary)
                         Spacer()
                     }
 
@@ -84,7 +84,7 @@ struct AboutView: View {
                 .padding(16)
                 .background(
                     RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(.white.opacity(0.06))
+                        .fill(Color(.secondarySystemBackground))
                 )
                 .padding(.horizontal, 32)
 
@@ -93,10 +93,10 @@ struct AboutView: View {
                 // Copyright statement
                 Text(copyrightYear)
                     .font(.system(.caption2, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.2))
+                    .foregroundStyle(.secondary.opacity(0.5))
                     .padding(.bottom, 40)
             }
         }
-        .preferredColorScheme(.dark)
+
     }
 }

@@ -19,7 +19,7 @@ struct CellView: View {
                 .frame(width: size, height: size)
                 .overlay(
                     RoundedRectangle(cornerRadius: size * 0.15)
-                        .strokeBorder(Color.white.opacity(0.08), lineWidth: 0.5)
+                        .strokeBorder(Color.primary.opacity(0.08), lineWidth: 0.5)
                 )
 
             // White flash overlay — animates in then out during a line clear.
@@ -45,7 +45,7 @@ struct CellView: View {
         if let name = colorName {
             return Color(name)
         }
-        return Color.white.opacity(0.05)
+        return Color.primary.opacity(0.05)
     }
 
     private func playClearAnimation() {

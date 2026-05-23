@@ -54,7 +54,7 @@ struct BoardView: View {
                 }
             }
             .frame(width: boardSize, height: boardSize)
-            .background(Color.white.opacity(0.03))
+            .background(Color.primary.opacity(0.03))
             .cornerRadius(8)
             .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             .background(

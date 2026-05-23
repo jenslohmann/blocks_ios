@@ -15,7 +15,7 @@ struct GameOverView: View {
 
     var body: some View {
         ZStack {
-            Color.black.opacity(0.75)
+            Color.black.opacity(0.6)
                 .ignoresSafeArea()
 
             VStack(spacing: 32) {
@@ -26,8 +26,8 @@ struct GameOverView: View {
             .padding(40)
             .background(
                 RoundedRectangle(cornerRadius: 24)
-                    .fill(Color(red: 0.09, green: 0.09, blue: 0.18))
-                    .shadow(color: .black.opacity(0.5), radius: 24, y: 8)
+                    .fill(Color("cardBackground"))
+                    .shadow(color: .black.opacity(0.4), radius: 24, y: 8)
             )
             .padding(.horizontal, 32)
             .scaleEffect(cardScale)
@@ -47,7 +47,7 @@ struct GameOverView: View {
         VStack(spacing: 8) {
             Text(String(localized: "gameOver.title"))
                 .font(.system(.largeTitle, design: .rounded, weight: .black))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
 
             if isNewHighScore {
                 Text(String(localized: "gameOver.newHighScore.badge"))
@@ -55,9 +55,7 @@ struct GameOverView: View {
                     .foregroundStyle(.black)
                     .padding(.horizontal, 12)
                     .padding(.vertical, 4)
-                    .background(
-                        Capsule().fill(Color.yellow)
-                    )
+                    .background(Capsule().fill(Color.yellow))
                     .transition(.scale.combined(with: .opacity))
             }
         }
@@ -65,17 +63,9 @@ struct GameOverView: View {
 
     private var scoreSection: some View {
         VStack(spacing: 16) {
-            scoreRow(
-                label: String(localized: "gameOver.finalScore.label"),
-                value: score,
-                valueColor: .white
-            )
-            Divider().background(Color.white.opacity(0.15))
-            scoreRow(
-                label: String(localized: "game.highScore.label"),
-                value: highScore,
-                valueColor: .yellow
-            )
+            scoreRow(label: String(localized: "gameOver.finalScore.label"), value: score,     valueColor: .primary)
+            Divider()
+            scoreRow(label: String(localized: "game.highScore.label"),      value: highScore, valueColor: .yellow)
         }
     }
 
@@ -95,12 +85,12 @@ struct GameOverView: View {
         Button(action: onPlayAgain) {
             Text(String(localized: "gameOver.playAgain.button"))
                 .font(.system(.headline, design: .rounded, weight: .bold))
-                .foregroundStyle(.black)
+                .foregroundStyle(Color("appBackground"))
                 .frame(maxWidth: .infinity)
                 .padding(.vertical, 16)
                 .background(
                     RoundedRectangle(cornerRadius: 14)
-                        .fill(Color.white)
+                        .fill(Color.primary)
                 )
         }
     }

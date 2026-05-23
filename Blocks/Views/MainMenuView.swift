@@ -4,14 +4,27 @@ import SwiftUI
 struct MainMenuView: View {
 
     @State private var navigateTo: AppScreen? = nil
+    @State private var showThemePicker: Bool = false
+    @AppStorage("appTheme") private var appTheme: String = AppTheme.dark.rawValue
 
     var body: some View {
         ZStack {
-            // Background
-            Color(red: 0.051, green: 0.051, blue: 0.102)
+            // Adaptive background
+            Color("appBackground")
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
+                // Settings button — top right
+                HStack {
+                    Spacer()
+                    Button(action: { showThemePicker = true }) {
+                        Image(systemName: "gearshape.fill")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.secondary)
+                            .padding(16)
+                    }
+                }
+
                 Spacer()
 
                 // App title
@@ -28,42 +41,15 @@ struct MainMenuView: View {
 
                 Text(String(localized: "menu.subtitle"))
                     .font(.system(.subheadline, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.5))
+                    .foregroundStyle(.secondary)
                     .padding(.bottom, 48)
 
                 // Menu buttons
                 VStack(spacing: 16) {
-                    MenuButton(
-                        title: String(localized: "menu.play.button"),
-                        systemImage: "play.fill",
-                        color: .cyan
-                    ) {
-                        navigateTo = .game
-                    }
-
-                    MenuButton(
-                        title: String(localized: "menu.highScores.button"),
-                        systemImage: "trophy.fill",
-                        color: .yellow
-                    ) {
-                        navigateTo = .highScores
-                    }
-
-                    MenuButton(
-                        title: String(localized: "menu.howToPlay.button"),
-                        systemImage: "questionmark.circle.fill",
-                        color: .green
-                    ) {
-                        navigateTo = .howToPlay
-                    }
-
-                    MenuButton(
-                        title: String(localized: "menu.about.button"),
-                        systemImage: "info.circle.fill",
-                        color: .purple
-                    ) {
-                        navigateTo = .about
-                    }
+                    MenuButton(title: String(localized: "menu.play.button"),       systemImage: "play.fill",              color: .cyan)   { navigateTo = .game }
+                    MenuButton(title: String(localized: "menu.highScores.button"), systemImage: "trophy.fill",            color: .yellow) { navigateTo = .highScores }
+                    MenuButton(title: String(localized: "menu.howToPlay.button"),  systemImage: "questionmark.circle.fill", color: .green) { navigateTo = .howToPlay }
+                    MenuButton(title: String(localized: "menu.about.button"),      systemImage: "info.circle.fill",       color: .purple) { navigateTo = .about }
                 }
                 .padding(.horizontal, 40)
 
@@ -92,7 +78,11 @@ struct MainMenuView: View {
                 ))
             }
         }
-        .preferredColorScheme(.dark)
+        .sheet(isPresented: $showThemePicker) {
+            ThemePickerSheet(appTheme: $appTheme)
+                .presentationDetents([.height(280)])
+                .presentationDragIndicator(.visible)
+        }
     }
 }
 
@@ -114,19 +104,19 @@ private struct MenuButton: View {
 
                 Text(title)
                     .font(.system(.title3, design: .rounded, weight: .semibold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
 
                 Spacer()
 
                 Image(systemName: "chevron.right")
                     .font(.system(.footnote, design: .rounded, weight: .bold))
-                    .foregroundStyle(.white.opacity(0.3))
+                    .foregroundStyle(.secondary)
             }
             .padding(.horizontal, 24)
             .padding(.vertical, 18)
             .background(
                 RoundedRectangle(cornerRadius: 16, style: .continuous)
-                    .fill(.white.opacity(0.07))
+                    .fill(Color(.secondarySystemBackground))
                     .overlay(
                         RoundedRectangle(cornerRadius: 16, style: .continuous)
                             .stroke(color.opacity(0.3), lineWidth: 1)
@@ -144,4 +134,3 @@ enum AppScreen: Identifiable {
 
     var id: Self { self }
 }
-

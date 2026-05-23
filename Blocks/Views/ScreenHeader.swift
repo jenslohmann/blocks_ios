@@ -6,14 +6,14 @@ func screenHeader(title: String, onClose: @escaping () -> Void) -> some View {
     ZStack {
         Text(title)
             .font(.system(.headline, design: .rounded, weight: .bold))
-            .foregroundStyle(.white)
+            .foregroundStyle(.primary)
 
         HStack {
             Spacer()
             Button(action: onClose) {
                 Image(systemName: "xmark.circle.fill")
                     .font(.system(size: 28))
-                    .foregroundStyle(.white.opacity(0.5))
+                    .foregroundStyle(.secondary)
                     .padding(8)
             }
         }

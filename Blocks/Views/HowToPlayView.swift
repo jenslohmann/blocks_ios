@@ -8,7 +8,7 @@ struct HowToPlayView: View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.051, green: 0.051, blue: 0.102)
+            Color("appBackground")
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -67,7 +67,7 @@ struct HowToPlayView: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
+
     }
 
     // MARK: - Scoring table
@@ -76,7 +76,7 @@ struct HowToPlayView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(String(localized: "howToPlay.scoring.heading"))
                 .font(.system(.headline, design: .rounded, weight: .bold))
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
 
             VStack(spacing: 8) {
                 ScoringRow(action: String(localized: "howToPlay.scoring.placePiece"),  points: String(localized: "howToPlay.scoring.placePiece.pts"))
@@ -89,7 +89,7 @@ struct HowToPlayView: View {
             .padding(16)
             .background(
                 RoundedRectangle(cornerRadius: 14, style: .continuous)
-                    .fill(.white.opacity(0.06))
+                    .fill(Color(.secondarySystemBackground))
             )
         }
     }
@@ -118,10 +118,10 @@ private struct TutorialStep: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(heading)
                     .font(.system(.subheadline, design: .rounded, weight: .bold))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                 Text(bodyText)
                     .font(.system(.subheadline, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.65))
+                    .foregroundStyle(.secondary)
                     .fixedSize(horizontal: false, vertical: true)
             }
         }
@@ -136,7 +136,7 @@ private struct ScoringRow: View {
         HStack {
             Text(action)
                 .font(.system(.subheadline, design: .rounded))
-                .foregroundStyle(.white.opacity(0.8))
+                .foregroundStyle(.primary)
             Spacer()
             Text(points)
                 .font(.system(.subheadline, design: .rounded, weight: .bold))

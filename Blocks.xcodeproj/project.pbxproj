@@ -35,6 +35,8 @@
 		AA000001000000000000003A /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003B /* HowToPlayView.swift */; };
 		AA000001000000000000004A /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004B /* AboutView.swift */; };
 		AA000001000000000000005A /* ScreenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000005B /* ScreenHeader.swift */; };
+		AA000001000000000000006A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000006B /* AppTheme.swift */; };
+		AA000001000000000000007A /* ThemePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000007B /* ThemePickerSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		AA000001000000000000003B /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
 		AA000001000000000000004B /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		AA000001000000000000005B /* ScreenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenHeader.swift; sourceTree = "<group>"; };
+		AA000001000000000000006B /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		AA000001000000000000007B /* ThemePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -144,6 +148,7 @@
 				AA000001000000000000003B /* HowToPlayView.swift */,
 				AA000001000000000000004B /* AboutView.swift */,
 				AA000001000000000000005B /* ScreenHeader.swift */,
+				AA000001000000000000007B /* ThemePickerSheet.swift */,
 				3B30CC5525FEAFDFC73B1989 /* PieceTrayView.swift */,
 				ABB7F6820AB4EDE160CBDF0F /* PieceView.swift */,
 			);
@@ -168,6 +173,7 @@
 				44C89BE1B3B818BD677A4E94 /* GameState.swift */,
 				F4E2944C67E1982DE3DCF595 /* Piece.swift */,
 				385F33547DBE14802EC0FE67 /* PieceSet.swift */,
+				AA000001000000000000006B /* AppTheme.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -306,6 +312,8 @@
 					AA000001000000000000003A /* HowToPlayView.swift in Sources */,
 					AA000001000000000000004A /* AboutView.swift in Sources */,
 					AA000001000000000000005A /* ScreenHeader.swift in Sources */,
+					AA000001000000000000006A /* AppTheme.swift in Sources */,
+					AA000001000000000000007A /* ThemePickerSheet.swift in Sources */,
 				20B3FD248207D5555DA02F0C /* HapticManager.swift in Sources */,
 				887BF0E1CB9C871BD5BC0B45 /* Piece.swift in Sources */,
 				EB5347C368EC923762F7DD22 /* PieceLibrary.swift in Sources */,

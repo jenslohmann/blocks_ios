@@ -1,6 +1,38 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "settings.theme.title" : {
+      "localizations" : {
+        "da" : { "stringUnit" : { "state" : "translated", "value" : "Udseende" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Appearance" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Apparence" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "外観" } }
+      }
+    },
+    "settings.theme.dark" : {
+      "localizations" : {
+        "da" : { "stringUnit" : { "state" : "translated", "value" : "Mørkt" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dark" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sombre" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ダーク" } }
+      }
+    },
+    "settings.theme.light" : {
+      "localizations" : {
+        "da" : { "stringUnit" : { "state" : "translated", "value" : "Lyst" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Light" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Clair" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ライト" } }
+      }
+    },
+    "settings.theme.system" : {
+      "localizations" : {
+        "da" : { "stringUnit" : { "state" : "translated", "value" : "Følg telefonen" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Use Device Setting" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Suivre l'appareil" } },
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "端末設定に従う" } }
+      }
+    },
     "about.appName" : {
       "localizations" : {
         "da" : {

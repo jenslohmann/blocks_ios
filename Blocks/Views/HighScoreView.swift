@@ -10,7 +10,7 @@ struct HighScoreView: View {
 
     var body: some View {
         ZStack {
-            Color(red: 0.051, green: 0.051, blue: 0.102)
+            Color("appBackground")
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -37,18 +37,18 @@ struct HighScoreView: View {
                 // Score value
                 Text(highScore.formatted())
                     .font(.system(size: 64, weight: .black, design: .rounded))
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
                     .monospacedDigit()
 
                 Text(String(localized: "highScore.pointsLabel"))
                     .font(.system(.headline, design: .rounded))
-                    .foregroundStyle(.white.opacity(0.5))
+                    .foregroundStyle(.secondary)
                     .padding(.top, 4)
 
                 if highScore == 0 {
                     Text(String(localized: "highScore.noScoreYet"))
                         .font(.system(.subheadline, design: .rounded))
-                        .foregroundStyle(.white.opacity(0.4))
+                        .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
                         .padding(.top, 32)
                         .padding(.horizontal, 40)
@@ -58,7 +58,6 @@ struct HighScoreView: View {
                 Spacer()
             }
         }
-        .preferredColorScheme(.dark)
+
     }
 }
-

@@ -32,7 +32,7 @@ struct GameView: View {
     var body: some View {
         ZStack {
             // Background fills the whole screen including safe areas.
-            Color(red: 0.051, green: 0.051, blue: 0.102)
+            Color("appBackground")
                 .ignoresSafeArea()
 
             GeometryReader { geometry in
@@ -51,7 +51,7 @@ struct GameView: View {
                     }) {
                         Image(systemName: "house.fill")
                             .font(.system(size: 20))
-                            .foregroundStyle(.white.opacity(0.5))
+                            .foregroundStyle(.secondary)
                             .padding(12)
                     }
                     Spacer()
