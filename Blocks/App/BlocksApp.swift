@@ -3,8 +3,7 @@ import SwiftUI
 struct BlocksApp: App {
     var body: some Scene {
         WindowGroup {
-            GameView()
-                .preferredColorScheme(.dark)
+            MainMenuView()
         }
     }
 }

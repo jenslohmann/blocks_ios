@@ -1,34 +1,47 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "CFBundleDisplayName": {
-      "localizations": {
-        "da": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Blocks"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "CFBundleDisplayName" : {
+      "comment" : "Bundle display name",
+      "localizations" : {
+        "da" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocks"
           }
         },
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Blocks"
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocks"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Blocks"
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocks"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Blocks"
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Blocks"
+          }
+        }
+      }
+    },
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Blocks"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

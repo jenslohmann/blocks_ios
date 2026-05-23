@@ -16,6 +16,7 @@ struct GameView: View {
 
     @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @Environment(\.verticalSizeClass)   private var verticalSizeClass
+    @Environment(\.dismiss) private var dismiss
 
     @State private var viewModel = GameViewModel()
 
@@ -26,6 +27,7 @@ struct GameView: View {
     @State private var boardShakeOffset: CGFloat = 0
     @State private var scoreScale: CGFloat = 1
     @State private var scoreGlowAmount: CGFloat = 0
+    @State private var showQuitConfirmation: Bool = false
 
     var body: some View {
         ZStack {
@@ -36,6 +38,27 @@ struct GameView: View {
             GeometryReader { geometry in
                 layoutBody(for: geometry)
             }
+
+            // Back-to-menu button — top left corner.
+            VStack {
+                HStack {
+                    Button(action: {
+                        if viewModel.gameState.isGameOver {
+                            dismiss()
+                        } else {
+                            showQuitConfirmation = true
+                        }
+                    }) {
+                        Image(systemName: "house.fill")
+                            .font(.system(size: 20))
+                            .foregroundStyle(.white.opacity(0.5))
+                            .padding(12)
+                    }
+                    Spacer()
+                }
+                Spacer()
+            }
+            .padding(.top, 8)
 
             // Game-over overlay always sits on top.
             if viewModel.gameState.isGameOver {
@@ -49,6 +72,16 @@ struct GameView: View {
             }
         }
         .animation(.easeInOut(duration: 0.3), value: viewModel.gameState.isGameOver)
+        .confirmationDialog(
+            String(localized: "game.quit.title"),
+            isPresented: $showQuitConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button(String(localized: "game.quit.confirm"), role: .destructive) { dismiss() }
+            Button(String(localized: "game.quit.cancel"), role: .cancel) { }
+        } message: {
+            Text(String(localized: "game.quit.message"))
+        }
         // Combo: score label bounces with a gold glow.
         .onChange(of: viewModel.comboEventID) { _, _ in
             withAnimation(.spring(duration: 0.25)) { scoreScale = 1.35; scoreGlowAmount = 1 }
@@ -89,7 +122,7 @@ struct GameView: View {
 
         return VStack(spacing: 0) {
             animatedHUD
-                .padding(.top, 12)
+                .padding(.top, 52)  // clears the top-left back button
                 .padding(.bottom, 8)
 
             boardView(cellSize: cellSize)
@@ -115,7 +148,8 @@ struct GameView: View {
         return HStack(spacing: 0) {
             VStack(spacing: 0) {
                 animatedHUD
-                    .padding(.vertical, 8)
+                    .padding(.top, 52)  // clears the top-left back button
+                    .padding(.bottom, 8)
                 boardView(cellSize: cellSize)
                     .frame(width: boardSide, height: boardSide)
             }
@@ -144,7 +178,7 @@ struct GameView: View {
 
         return VStack(spacing: 0) {
             animatedHUD
-                .padding(.top, 24)
+                .padding(.top, 56)  // clears the top-left back button
                 .padding(.bottom, 16)
 
             boardView(cellSize: cellSize)
