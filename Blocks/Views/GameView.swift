@@ -119,10 +119,11 @@ struct GameView: View {
     private func iPhonePortraitLayout(geometry: GeometryProxy) -> some View {
         let boardSide = min(geometry.size.width - 16, geometry.size.height * 0.6)
         let cellSize  = boardSide / CGFloat(Board.size)
+        let trayHeight = cellSize * 0.62 * 5 + 44   // 5 cells tall + minimum touch target
 
         return VStack(spacing: 0) {
             animatedHUD
-                .padding(.top, 52)  // clears the top-left back button
+                .padding(.top, 52)
                 .padding(.bottom, 8)
 
             boardView(cellSize: cellSize)
@@ -132,9 +133,11 @@ struct GameView: View {
             Spacer(minLength: 0)
 
             tray(cellSize: cellSize * 0.62)
+                .frame(height: trayHeight)
                 .padding(.horizontal, 16)
                 .padding(.bottom, 24)
         }
+        .animation(nil, value: viewModel.pieceSet.slots.map { $0?.id })
     }
 
     // MARK: - iPhone landscape
@@ -159,6 +162,7 @@ struct GameView: View {
             VStack(spacing: 0) {
                 Spacer()
                 verticalTray(cellSize: trayCellSize)
+                    .animation(nil, value: viewModel.pieceSet.slots.map { $0?.id })
                 Spacer()
             }
             .frame(width: geometry.size.width * 0.3)
@@ -175,10 +179,11 @@ struct GameView: View {
         let boardSide = min(geometry.size.width - horizontalPadding * 2,
                             geometry.size.height * 0.62)
         let cellSize = boardSide / CGFloat(Board.size)
+        let trayHeight = cellSize * 0.62 * 5 + 44
 
         return VStack(spacing: 0) {
             animatedHUD
-                .padding(.top, 56)  // clears the top-left back button
+                .padding(.top, 56)
                 .padding(.bottom, 16)
 
             boardView(cellSize: cellSize)
@@ -187,9 +192,11 @@ struct GameView: View {
             Spacer(minLength: 0)
 
             tray(cellSize: cellSize * 0.62)
+                .frame(height: trayHeight)
                 .padding(.horizontal, horizontalPadding)
                 .padding(.bottom, 40)
         }
+        .animation(nil, value: viewModel.pieceSet.slots.map { $0?.id })
     }
 
     // MARK: - iPad landscape
@@ -224,9 +231,11 @@ struct GameView: View {
                     .frame(width: boardSide, height: boardSide)
                 Spacer(minLength: 0)
                 tray(cellSize: cellSize * 0.62)
+                    .frame(height: cellSize * 0.62 * 5 + 44)
                     .padding(.bottom, 32)
             }
             .frame(maxWidth: .infinity)
+            .animation(nil, value: viewModel.pieceSet.slots.map { $0?.id })
 
             // Right HUD column — high score
             VStack {
@@ -293,6 +302,7 @@ struct GameView: View {
                 }
             }
         }
+        .animation(nil, value: viewModel.pieceSet.slots.map { $0?.id })
     }
 
     /// Horizontal shake animation — used on game over.

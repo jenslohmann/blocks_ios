@@ -95,6 +95,13 @@ final class GameViewModel {
                 SoundManager.shared.play(.clear)
             }
             gameState.comboCount += 1
+
+            // Reset the clearing set after the animation has had time to finish.
+            // The shrink-to-zero animation takes ~300 ms; waiting 400 ms is safe.
+            Task {
+                try? await Task.sleep(for: .milliseconds(400))
+                recentlyClearedCells = []
+            }
         } else {
             recentlyClearedCells = []
             gameState.comboCount = 0

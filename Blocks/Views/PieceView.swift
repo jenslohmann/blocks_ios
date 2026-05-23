@@ -26,6 +26,8 @@ struct PieceView: View {
             .scaleEffect(isDragging ? 1.2 : 1.0)
             .rotationEffect(.degrees(wiggleAngle))
             .animation(.spring(duration: 0.2), value: isDragging)
+            .animation(.spring(duration: 0.2), value: dragOffset)
+            .geometryGroup()   // isolates transforms so they don't affect parent layout
             .gesture(dragGesture)
             .onChange(of: triggerInvalidDrop) { _, _ in
                 playWiggle()

@@ -16,8 +16,14 @@ struct PieceTrayView: View {
             ForEach(0 ..< slots.count, id: \.self) { index in
                 slotView(for: slots[index])
                     .frame(maxWidth: .infinity)
+                    // Disable all implicit animations on the slot container so that
+                    // pieces becoming nil (after placement) never cause siblings to
+                    // animate their position.
+                    .animation(nil, value: slots[index] == nil)
             }
         }
+        // Suppress any layout-driven animation on the whole tray.
+        .animation(nil, value: slots.map { $0?.id })
     }
 
     @ViewBuilder
@@ -40,4 +46,3 @@ struct PieceTrayView: View {
         }
     }
 }
-
