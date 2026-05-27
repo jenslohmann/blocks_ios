@@ -1,10 +1,22 @@
 import SwiftUI
+import UIKit
 
 /// About screen — app name, version, open-source info.
 /// Presented as a full-screen cover from the main menu.
 struct AboutView: View {
 
     @Binding var isPresented: Bool
+
+    /// Reads the app icon from the bundle's CFBundleIcons entry.
+    private var appIconImage: UIImage? {
+        guard
+            let icons = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
+            let primaryIcon = icons["CFBundlePrimaryIcon"] as? [String: Any],
+            let iconFiles = primaryIcon["CFBundleIconFiles"] as? [String],
+            let lastName = iconFiles.last
+        else { return nil }
+        return UIImage(named: lastName)
+    }
 
     private var appVersion: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
@@ -30,22 +42,32 @@ struct AboutView: View {
 
                 Spacer()
 
-                // App icon placeholder + name
-                RoundedRectangle(cornerRadius: 22, style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            colors: [.cyan, .blue, .purple],
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                    .frame(width: 100, height: 100)
-                    .overlay(
-                        Text("B")
-                            .font(.system(size: 52, weight: .black, design: .rounded))
-                            .foregroundStyle(.white)
-                    )
-                    .padding(.bottom, 20)
+                // App icon + name
+                Group {
+                    if let icon = appIconImage {
+                        Image(uiImage: icon)
+                            .resizable()
+                            .scaledToFit()
+                    } else {
+                        // Fallback if icon cannot be read from bundle
+                        RoundedRectangle(cornerRadius: 22, style: .continuous)
+                            .fill(
+                                LinearGradient(
+                                    colors: [.cyan, .blue, .purple],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .overlay(
+                                Text("B")
+                                    .font(.system(size: 52, weight: .black, design: .rounded))
+                                    .foregroundStyle(.white)
+                            )
+                    }
+                }
+                .frame(width: 100, height: 100)
+                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                .padding(.bottom, 20)
 
                 Text(String(localized: "about.appName"))
                     .font(.system(.title, design: .rounded, weight: .black))
