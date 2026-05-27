@@ -21,6 +21,15 @@
 		7504E1696D2504AAE398499B /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0A8CD20A033CFD2821863A94 /* InfoPlist.xcstrings */; };
 		887BF0E1CB9C871BD5BC0B45 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E2944C67E1982DE3DCF595 /* Piece.swift */; };
 		A61AB70B5583B7625C917F8B /* BoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA6D387DC488124612D3771 /* BoardView.swift */; };
+		AA000001000000000000001A /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001B /* MainMenuView.swift */; };
+		AA000001000000000000002A /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002B /* HighScoreView.swift */; };
+		AA000001000000000000003A /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003B /* HowToPlayView.swift */; };
+		AA000001000000000000004A /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004B /* AboutView.swift */; };
+		AA000001000000000000005A /* ScreenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000005B /* ScreenHeader.swift */; };
+		AA000001000000000000006A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000006B /* AppTheme.swift */; };
+		AA000001000000000000007A /* ThemePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000007B /* ThemePickerSheet.swift */; };
+		AA000001000000000000008A /* ScoreEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000008B /* ScoreEntry.swift */; };
+		AA000001000000000000009A /* ScoreRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000009B /* ScoreRepository.swift */; };
 		B63762B41611F860AD5AD502 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F1842ECDB1D288F47E33908 /* SoundManager.swift */; };
 		BB1DB4F13C8B4F72B901E8E2 /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B862E063E308C0F78BE7261 /* Block.swift */; };
 		C5C8BD7D3293E9075FD23B73 /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97370FC230ADE7537F77DC05 /* Coordinate.swift */; };
@@ -30,13 +39,6 @@
 		E69E7A6BBCA160DBB33BB052 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C89BE1B3B818BD677A4E94 /* GameState.swift */; };
 		EB5347C368EC923762F7DD22 /* PieceLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FE8D9A2AAE6DAAD03D4DA83 /* PieceLibrary.swift */; };
 		F8C799FD9ACC19CED32DE55A /* HUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF01936AF99FEB47316B7B1D /* HUDView.swift */; };
-		AA000001000000000000001A /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000001B /* MainMenuView.swift */; };
-		AA000001000000000000002A /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000002B /* HighScoreView.swift */; };
-		AA000001000000000000003A /* HowToPlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000003B /* HowToPlayView.swift */; };
-		AA000001000000000000004A /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000004B /* AboutView.swift */; };
-		AA000001000000000000005A /* ScreenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000005B /* ScreenHeader.swift */; };
-		AA000001000000000000006A /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000006B /* AppTheme.swift */; };
-		AA000001000000000000007A /* ThemePickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000001000000000000007B /* ThemePickerSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +54,7 @@
 /* Begin PBXFileReference section */
 		0A8CD20A033CFD2821863A94 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		0B88B2E9B6E6902272294504 /* BlocksApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksApp.swift; sourceTree = "<group>"; };
-		27A09FA4AF4DB962DB3BDAA6 /* Blocks.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = Blocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		27A09FA4AF4DB962DB3BDAA6 /* Blocks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Blocks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B032ECFAFE8133346D9FAE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		321FA284AB59B2DDA124E910 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
 		385F33547DBE14802EC0FE67 /* PieceSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceSet.swift; sourceTree = "<group>"; };
@@ -64,18 +66,12 @@
 		5DADFE79E7D87FC06972A891 /* CellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellView.swift; sourceTree = "<group>"; };
 		5FE8D9A2AAE6DAAD03D4DA83 /* PieceLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceLibrary.swift; sourceTree = "<group>"; };
 		6B862E063E308C0F78BE7261 /* Block.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
-		73E4CD97AA573C35F1F16734 /* BlocksTests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = BlocksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		73E4CD97AA573C35F1F16734 /* BlocksTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BlocksTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB9286A5F082066574D7030 /* BoardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		888BCC86E234A64C45357C4A /* GameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModelTests.swift; sourceTree = "<group>"; };
 		8FA6D387DC488124612D3771 /* BoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardView.swift; sourceTree = "<group>"; };
 		97370FC230ADE7537F77DC05 /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
 		9F1842ECDB1D288F47E33908 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
-		ABB7F6820AB4EDE160CBDF0F /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
-		C9F67DAFFE4F14C830B0CC4A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		EDEE6E156BEB304A796241C8 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
-		F4E2944C67E1982DE3DCF595 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
-		FF01936AF99FEB47316B7B1D /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
-		FF82729D913084A2FCC518A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AA000001000000000000001B /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
 		AA000001000000000000002B /* HighScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreView.swift; sourceTree = "<group>"; };
 		AA000001000000000000003B /* HowToPlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowToPlayView.swift; sourceTree = "<group>"; };
@@ -83,6 +79,14 @@
 		AA000001000000000000005B /* ScreenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenHeader.swift; sourceTree = "<group>"; };
 		AA000001000000000000006B /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		AA000001000000000000007B /* ThemePickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemePickerSheet.swift; sourceTree = "<group>"; };
+		AA000001000000000000008B /* ScoreEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEntry.swift; sourceTree = "<group>"; };
+		AA000001000000000000009B /* ScoreRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreRepository.swift; sourceTree = "<group>"; };
+		ABB7F6820AB4EDE160CBDF0F /* PieceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieceView.swift; sourceTree = "<group>"; };
+		C9F67DAFFE4F14C830B0CC4A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		EDEE6E156BEB304A796241C8 /* GameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameView.swift; sourceTree = "<group>"; };
+		F4E2944C67E1982DE3DCF595 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
+		FF01936AF99FEB47316B7B1D /* HUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUDView.swift; sourceTree = "<group>"; };
+		FF82729D913084A2FCC518A7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -174,6 +178,7 @@
 				F4E2944C67E1982DE3DCF595 /* Piece.swift */,
 				385F33547DBE14802EC0FE67 /* PieceSet.swift */,
 				AA000001000000000000006B /* AppTheme.swift */,
+				AA000001000000000000008B /* ScoreEntry.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -192,6 +197,7 @@
 				321FA284AB59B2DDA124E910 /* HapticManager.swift */,
 				5FE8D9A2AAE6DAAD03D4DA83 /* PieceLibrary.swift */,
 				9F1842ECDB1D288F47E33908 /* SoundManager.swift */,
+				AA000001000000000000009B /* ScoreRepository.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -251,9 +257,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastUpgradeCheck = 1600;
-				TargetAttributes = {
-				};
+				LastUpgradeCheck = 2650;
 			};
 			buildConfigurationList = 5A40E8A7180A0C5825221630 /* Build configuration list for PBXProject "Blocks" */;
 			developmentRegion = en;
@@ -306,14 +310,16 @@
 				E69E7A6BBCA160DBB33BB052 /* GameState.swift in Sources */,
 				56CAE6020F7F85D4F6BC50C4 /* GameView.swift in Sources */,
 				565ECD33DC5E183A5F206C7B /* GameViewModel.swift in Sources */,
-					F8C799FD9ACC19CED32DE55A /* HUDView.swift in Sources */,
-					AA000001000000000000001A /* MainMenuView.swift in Sources */,
-					AA000001000000000000002A /* HighScoreView.swift in Sources */,
-					AA000001000000000000003A /* HowToPlayView.swift in Sources */,
-					AA000001000000000000004A /* AboutView.swift in Sources */,
-					AA000001000000000000005A /* ScreenHeader.swift in Sources */,
-					AA000001000000000000006A /* AppTheme.swift in Sources */,
-					AA000001000000000000007A /* ThemePickerSheet.swift in Sources */,
+				F8C799FD9ACC19CED32DE55A /* HUDView.swift in Sources */,
+				AA000001000000000000001A /* MainMenuView.swift in Sources */,
+				AA000001000000000000002A /* HighScoreView.swift in Sources */,
+				AA000001000000000000003A /* HowToPlayView.swift in Sources */,
+				AA000001000000000000004A /* AboutView.swift in Sources */,
+				AA000001000000000000005A /* ScreenHeader.swift in Sources */,
+				AA000001000000000000006A /* AppTheme.swift in Sources */,
+				AA000001000000000000007A /* ThemePickerSheet.swift in Sources */,
+				AA000001000000000000008A /* ScoreEntry.swift in Sources */,
+				AA000001000000000000009A /* ScoreRepository.swift in Sources */,
 				20B3FD248207D5555DA02F0C /* HapticManager.swift in Sources */,
 				887BF0E1CB9C871BD5BC0B45 /* Piece.swift in Sources */,
 				EB5347C368EC923762F7DD22 /* PieceLibrary.swift in Sources */,
@@ -348,6 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -382,6 +389,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -403,6 +411,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
@@ -414,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -448,6 +458,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -462,6 +473,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 6.0;

@@ -37,6 +37,11 @@ struct GameView: View {
 
             GeometryReader { geometry in
                 layoutBody(for: geometry)
+                    .onChange(of: geometry.size) { _, _ in
+                        // Reset the stored board frame whenever the screen size changes
+                        // (rotation, Split View resize) so drag coordinates stay accurate.
+                        boardGlobalFrame = .zero
+                    }
             }
 
             // Back-to-menu button — top left corner.
@@ -97,19 +102,20 @@ struct GameView: View {
 
     @ViewBuilder
     private func layoutBody(for geometry: GeometryProxy) -> some View {
-        if horizontalSizeClass == .compact {
-            // Compact width: iPhone portrait OR iPad in Split View / Slide Over.
-            iPhonePortraitLayout(geometry: geometry)
-        } else if verticalSizeClass == .compact {
-            // Regular width + compact height: iPhone landscape.
-            iPhoneLandscapeLayout(geometry: geometry)
-        } else {
-            // Regular width + regular height: native iPad.
+        if horizontalSizeClass == .regular && verticalSizeClass == .regular {
+            // Native iPad (portrait or landscape).
             if geometry.size.width > geometry.size.height {
                 iPadLandscapeLayout(geometry: geometry)
             } else {
                 iPadPortraitLayout(geometry: geometry)
             }
+        } else if verticalSizeClass == .compact {
+            // iPhone landscape (compact width + compact height)
+            // OR regular-width compact-height (rare, treat same way).
+            iPhoneLandscapeLayout(geometry: geometry)
+        } else {
+            // iPhone portrait / iPad Split View / Slide Over.
+            iPhonePortraitLayout(geometry: geometry)
         }
     }
 
@@ -141,37 +147,59 @@ struct GameView: View {
     }
 
     // MARK: - iPhone landscape
-    // Board left/centre, tray to the right, HUD at top.
+    // Board on the left, vertical tray on the right, HUD above board.
 
     private func iPhoneLandscapeLayout(geometry: GeometryProxy) -> some View {
-        let boardSide = min(geometry.size.height - 8, geometry.size.width * 0.55)
+        // GeometryReader inside a ZStack reports the full screen size including safe
+        // areas, so we subtract the safe area insets manually so the board and tray
+        // do not overflow into the notch / dynamic island region.
+        let safeTop    = geometry.safeAreaInsets.top
+        let safeBottom = geometry.safeAreaInsets.bottom
+        let safeLeft   = geometry.safeAreaInsets.leading
+        let safeRight  = geometry.safeAreaInsets.trailing
+        let safeHeight = geometry.size.height - safeTop - safeBottom
+        let safeWidth  = geometry.size.width  - safeLeft - safeRight
+
+        // Right tray column takes ~30 % of width (min 100 pt).
+        let trayColumnWidth = max(safeWidth * 0.30, 100.0)
+
+        // Board side: fill the available height minus a small vertical margin.
+        let boardSide = min(safeHeight - 16, safeWidth - trayColumnWidth - 16)
         let cellSize  = boardSide / CGFloat(Board.size)
-        let trayCellSize = cellSize * 0.55
+
+        // Tray pieces must fit inside the tray column and also fit 3 pieces
+        // vertically within the board height.  Take the smaller of the two.
+        let trayCellByWidth  = (trayColumnWidth - 24) / 5   // 5 is max piece width
+        let trayCellByHeight = (safeHeight - 48) / (3 * 5 + 2)  // 3 pieces × 5 rows + gaps
+        let trayCellSize = min(trayCellByWidth, trayCellByHeight)
 
         return HStack(spacing: 0) {
-            VStack(spacing: 0) {
+            // Left column: HUD above board.
+            VStack(spacing: 4) {
                 animatedHUD
-                    .padding(.top, 52)  // clears the top-left back button
-                    .padding(.bottom, 8)
+                    .padding(.top, 8)
+                    .padding(.bottom, 4)
                 boardView(cellSize: cellSize)
                     .frame(width: boardSide, height: boardSide)
+                Spacer(minLength: 0)
             }
             .frame(maxWidth: .infinity)
 
-            // Tray stacked vertically on the right side.
+            // Right column: vertical tray centred.
             VStack(spacing: 0) {
-                Spacer()
+                Spacer(minLength: 0)
                 verticalTray(cellSize: trayCellSize)
                     .animation(nil, value: viewModel.pieceSet.slots.map { $0?.id })
-                Spacer()
+                Spacer(minLength: 0)
             }
-            .frame(width: geometry.size.width * 0.3)
-            .padding(.trailing, 8)
+            .frame(width: trayColumnWidth)
         }
-        .padding(.horizontal, 8)
+        .padding(.leading, max(8, safeLeft))
+        .padding(.trailing, max(8, safeRight))
+        .padding(.top, max(0, safeTop))
+        .padding(.bottom, max(0, safeBottom))
     }
 
-    // MARK: - iPad portrait
     // Board centred with generous padding, tray below, HUD above.
 
     private func iPadPortraitLayout(geometry: GeometryProxy) -> some View {

@@ -36,7 +36,7 @@ final class GameViewModel {
     // MARK: - Init
 
     init() {
-        gameState.highScore = UserDefaults.standard.integer(forKey: "highScore")
+        gameState.highScore = ScoreRepository.loadTopScores().first?.score ?? 0
     }
 
     // MARK: - Drag interaction
@@ -121,13 +121,11 @@ final class GameViewModel {
             gameOverEventID = UUID()
             HapticManager.gameOver()
             SoundManager.shared.play(.gameOver)
-        }
 
-        // Persist high score and flag if it's a new record.
-        if gameState.score > gameState.highScore {
-            gameState.highScore = gameState.score
-            gameState.isNewHighScore = true
-            UserDefaults.standard.set(gameState.highScore, forKey: "highScore")
+            // Only record the final score once the game is truly over.
+            let result = ScoreRepository.record(score: gameState.score)
+            gameState.isNewHighScore = result.isTopTen
+            gameState.highScore = result.entries.first?.score ?? gameState.score
         }
 
         return true
@@ -146,7 +144,7 @@ final class GameViewModel {
         board = Board()
         pieceSet = PieceSet()
         gameState = GameState()
-        gameState.highScore = UserDefaults.standard.integer(forKey: "highScore")
+        gameState.highScore = ScoreRepository.loadTopScores().first?.score ?? 0
     }
 
     // MARK: - Private helpers
